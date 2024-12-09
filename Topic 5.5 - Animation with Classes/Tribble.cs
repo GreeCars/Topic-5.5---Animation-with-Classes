@@ -45,6 +45,10 @@ namespace Topic_5._5___Animation_with_Classes
             if (_rectangle.Top <= 0 || _rectangle.Bottom >= window.Height)
                 _speed.Y *= -1;
         }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_texture, _rectangle, Color.White);
+        }
     }
 
 }

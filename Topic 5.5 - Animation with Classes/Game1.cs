@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace Topic_5._5___Animation_with_Classes
 {
@@ -10,10 +12,9 @@ namespace Topic_5._5___Animation_with_Classes
         private SpriteBatch _spriteBatch;
 
         Rectangle window;
+        Random generator;
 
-        Tribble tribble1;
-
-        Tribble tribble2;
+        List<Tribble> tribbles;
 
         Texture2D tribbleBrownTexture;
 
@@ -37,15 +38,20 @@ namespace Topic_5._5___Animation_with_Classes
         {
             // TODO: Add your initialization logic here
             window = new Rectangle(0, 0, 800, 500);
+            generator = new Random();
             _graphics.PreferredBackBufferWidth = window.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = window.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
+            tribbles = new List<Tribble>();
 
 
             base.Initialize();
 
-            tribble1 = new Tribble(tribbleGreyTexture, new Rectangle(300, 10, 100, 100), new Vector2(2, 0));
-            tribble2 = new Tribble(tribbleOrangeTexture, new Rectangle(300, 10, 100, 100), new Vector2(0, 2));
+            tribbles.Add(new Tribble(tribbleGreyTexture, new Rectangle(300, 10, 100, 100), new Vector2(2, 0)));
+            for(int i = 0; i < 50; i++)
+                tribbles.Add(new Tribble(tribbleOrangeTexture, new Rectangle(generator.Next(window.Width - 120), generator.Next(window.Height - 120), generator.Next(50, 120), generator.Next(50, 120)), new Vector2(generator.Next(-3, 3), generator.Next(-3, 3))));
+
+
         }
 
         protected override void LoadContent()
@@ -67,7 +73,8 @@ namespace Topic_5._5___Animation_with_Classes
                 Exit();
 
             // TODO: Add your update logic here
-            tribble1.Move(window);
+            for (int i = 0; i < tribbles.Count; i++)
+                tribbles[i].Move(window);
 
             
 
@@ -81,8 +88,8 @@ namespace Topic_5._5___Animation_with_Classes
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(tribble1.Texture, tribble1.Rectangle, Color.White);
-            _spriteBatch.Draw(tribble2.Texture, tribble2.Rectangle, Color.White);
+            for (int i = 0; i < tribbles.Count; i++)
+                tribbles[i].Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
