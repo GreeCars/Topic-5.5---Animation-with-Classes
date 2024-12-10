@@ -15,16 +15,12 @@ namespace Topic_5._5___Animation_with_Classes
         Random generator;
 
         List<Tribble> tribbles;
+        List<Texture2D> tribbleTextures;
 
-        Texture2D tribbleBrownTexture;
-
-        Texture2D tribbleCreamTexture;
-
-        Texture2D tribbleGreyTexture;
+        
         Rectangle tribbleGreyRect;
         Vector2 tribbleGreySpeed;
 
-        Texture2D tribbleOrangeTexture;
 
         public Game1()
         {
@@ -43,13 +39,13 @@ namespace Topic_5._5___Animation_with_Classes
             _graphics.PreferredBackBufferHeight = window.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
             tribbles = new List<Tribble>();
+            tribbleTextures = new List<Texture2D>();
 
 
             base.Initialize();
 
-            tribbles.Add(new Tribble(tribbleGreyTexture, new Rectangle(300, 10, 100, 100), new Vector2(2, 0)));
             for(int i = 0; i < 50; i++)
-                tribbles.Add(new Tribble(tribbleOrangeTexture, new Rectangle(generator.Next(window.Width - 120), generator.Next(window.Height - 120), generator.Next(50, 120), generator.Next(50, 120)), new Vector2(generator.Next(-3, 3), generator.Next(-3, 3))));
+                tribbles.Add(new Tribble(tribbleTextures[generator.Next(tribbleTextures.Count)], new Rectangle(generator.Next(window.Width - 120), generator.Next(window.Height - 120), generator.Next(50, 120), generator.Next(50, 120)), new Vector2(generator.Next(-3, 3), generator.Next(-3, 3))));
 
 
         }
@@ -59,10 +55,10 @@ namespace Topic_5._5___Animation_with_Classes
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            tribbleGreyTexture = Content.Load<Texture2D>("tribbleGrey");
-            tribbleBrownTexture = Content.Load<Texture2D>("tribbleBrown");
-            tribbleCreamTexture = Content.Load<Texture2D>("tribbleCream");
-            tribbleOrangeTexture = Content.Load<Texture2D>("tribbleOrange");
+            tribbleTextures.Add(Content.Load<Texture2D>("tribbleGrey"));
+            tribbleTextures.Add(Content.Load<Texture2D>("tribbleBrown"));
+            tribbleTextures.Add(Content.Load<Texture2D>("tribbleCream"));
+            tribbleTextures.Add(Content.Load<Texture2D>("tribbleOrange"));
 
 
         }
